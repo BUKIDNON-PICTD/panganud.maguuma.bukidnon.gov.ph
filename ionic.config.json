@@ -1,5 +1,7 @@
 {
   "name": "tagabukid",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
