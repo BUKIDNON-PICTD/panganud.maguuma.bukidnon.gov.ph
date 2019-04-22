@@ -8,6 +8,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+
+const config: SocketIoConfig = { url: 'http://122.54.200.110:9000', options: {} };
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,6 +18,7 @@ import { AppRoutingModule } from './app-routing.module';
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
+    SocketIoModule.forRoot(config),
     AppRoutingModule
   ],
   providers: [
