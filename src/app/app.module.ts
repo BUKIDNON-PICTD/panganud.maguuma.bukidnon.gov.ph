@@ -12,8 +12,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { Storage, IonicStorageModule } from '@ionic/storage';
 import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
+
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 import { environment } from '../environments/environment';
+
 
 const config: SocketIoConfig = { url: environment.url, options: {} };
 
@@ -22,7 +24,7 @@ export function jwtOptionsFactory(storage){
       tokenGetter: () => {
         return storage.get('access_token');
       },
-      whitelistedDomains: ['localhost:9000']
+      whitelistedDomains: ['122.54.200.110:9000']
     }
 }
 

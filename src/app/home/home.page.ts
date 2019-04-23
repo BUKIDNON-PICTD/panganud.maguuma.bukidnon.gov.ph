@@ -42,7 +42,7 @@ export class HomePage implements OnInit {
         this.socket.emit('checkinserveronline', this.clientid);
       }
     });
-    
+
     this.socket.on('reconnect_error', () => {
       console.log('attempt to reconnect has failed');
     });

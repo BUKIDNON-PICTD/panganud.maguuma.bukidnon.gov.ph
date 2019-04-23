@@ -27,6 +27,10 @@ const routes: Routes = [
     path: 'dashboard',
     loadChildren: './pages/dashboard/dashboard.module#DashboardPageModule',
     canActivate: [AuthGuardService]
+  },
+  { path: 'farmerslist', 
+    loadChildren: './pages/farmerslist/farmerslist.module#FarmerslistPageModule',
+    canActivate: [AuthGuardService]
   }
 ];
 

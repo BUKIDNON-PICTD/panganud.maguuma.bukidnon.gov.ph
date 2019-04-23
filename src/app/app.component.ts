@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
+import { Socket } from 'ng-socket-io';
 
 @Component({
   selector: 'app-root',
@@ -13,40 +14,90 @@ import { Router } from '@angular/router';
 export class AppComponent {
   public appPages = [
     {
-      title: 'Home',
-      url: '/home',
-      icon: 'home'
+      title: 'Dashboard',
+      url: '/dashboard',
+      icon: 'podium'
     },
     {
-      title: 'List',
-      url: '/list',
+      title: 'Farmers List',
+      url: '/farmerslist',
       icon: 'list'
     }
   ];
 
-  public isAuthenticated = false;
+  private items: any;
+  private connected: any;
+  private clientid: any;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    public socket: Socket
   ) {
     this.initializeApp();
+    this.connected = false;
+    this.clientid = 'CLIENT1';
+
+    this.socket.on('login', (data) => {
+      this.connected = true;
+      console.log(data.numServers + ' servers online');
+    });
+
+    this.socket.on('serveronline', (data) => {
+      console.log(data.servername + ' is connected');
+    });
+
+    this.socket.on('serveroffline', (data) => {
+      console.log(data.servername + ' is disconnected');
+    });
+
+    this.socket.on('disconnect', () => {
+      console.log('you have been disconnected');
+    });
+
+    this.socket.on('message', (data) => {
+      console.log('message from ' + data.servername + ' : ' + data.message);
+    });
+
+    this.socket.on('reconnect', () => {
+      console.log('you have been reconnected');
+      if (this.clientid) {
+        this.socket.emit('checkinserveronline', this.clientid);
+      }
+    });
+
+    this.socket.on('reconnect_error', () => {
+      console.log('attempt to reconnect has failed');
+    });
+    // this.socket.on('Message', (data) => {
+    //   data.forEach((x) => {
+    //     if (x.setting) {
+    //       x.setting = JSON.parse(x.setting);
+    //     }
+    //   });
+    //   console.log(data[0].code);
+    //   this.items = data;
+    // });
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.authService.authenticationState.subscribe(state =>{
+      this.socket.emit('checkinserveronline', this.clientid);
+      this.authService.authenticationState.subscribe(state => {
         if (state) {
-          this.isAuthenticated = true;
           this.router.navigate(['dashboard']);
         } else {
           this.router.navigate(['login']);
         }
       });
     });
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }
