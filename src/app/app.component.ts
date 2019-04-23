@@ -24,6 +24,7 @@ export class AppComponent {
     }
   ];
 
+  public isAuthenticated = false;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -38,8 +39,9 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.authService.authenticationState.subscribe(state=>{
+      this.authService.authenticationState.subscribe(state =>{
         if (state) {
+          this.isAuthenticated = true;
           this.router.navigate(['dashboard']);
         } else {
           this.router.navigate(['login']);

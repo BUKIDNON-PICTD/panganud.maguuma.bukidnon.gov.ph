@@ -13,8 +13,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { Storage, IonicStorageModule } from '@ionic/storage';
 import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+import { environment } from '../environments/environment';
 
-const config: SocketIoConfig = { url: 'http://122.54.200.110:9000', options: {} };
+const config: SocketIoConfig = { url: environment.url, options: {} };
 
 export function jwtOptionsFactory(storage){
     return {
