@@ -12,13 +12,13 @@ const TOKEN_KEY = 'access_token';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class FarmerService {
 
   url = environment.url;
   user = null;
   authenticationState = new BehaviorSubject(false);
 
-  constructor(
+   constructor(
     private http: HttpClient,
     private helper: JwtHelperService,
     private storage: Storage,
@@ -28,7 +28,6 @@ export class AuthService {
         this.checkToken();
     });
   }
-
   checkToken() {
     this.storage.get(TOKEN_KEY).then(token => {
       if (token) {
@@ -45,51 +44,14 @@ export class AuthService {
     });
   }
 
-  register(credentials) {
-    return this.http.post(`${this.url}/api/register`, credentials).pipe(
-      catchError(e => {
-        this.showAlert(e.error.msg);
-        throw new Error(e);
-      })
-    );
-  }
-
-  login(credentials) {
-    return this.http.post(`${this.url}/api/login`, credentials)
+  serverrequest(params){
+    return this.http.post(`${this.url}/serverrequest`, params)
       .pipe(
-        tap(res => {
-          this.storage.set(TOKEN_KEY, res['token']);
-          this.user = this.helper.decodeToken(res['token']);
-          this.authenticationState.next(true);
-        }),
         catchError(e => {
           this.showAlert(e.error.msg);
           throw new Error(e);
         })
       );
-  }
-
-  logout() {
-    this.storage.remove(TOKEN_KEY).then(() => {
-      this.authenticationState.next(false);
-    });
-  }
-
-  getSpecialData() {
-    return this.http.get(`${this.url}/api/special`).pipe(
-      catchError(e => {
-        let status = e.status;
-        if (status === 401) {
-          this.showAlert('You are not authorized for this!');
-          this.logout();
-        }
-        throw new Error(e);
-      })
-    )
-  }
-
-  isAuthenticated() {
-    return this.authenticationState.value;
   }
 
   showAlert(msg) {

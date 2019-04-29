@@ -17,6 +17,32 @@
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
+        <div class="card">
+          <div class="card-header border-transparent">
+            <h3 class="card-title">SERVER STATUS</h3>
+            
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table m-0">
+                <thead>
+                  <tr>
+                    <th>SERVER ID</th>
+                    <th>STATUS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of serverList">
+                    <td>{{ item }}</td>
+                    <td><span class="badge badge-success">ONLINE</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.table-responsive -->
+          </div>
+        </div>
         <ion-button expand="full" (click)="logout()">Logout</ion-button>
       </ion-content>
     </ion-menu>

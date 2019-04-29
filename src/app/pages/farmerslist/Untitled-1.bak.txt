@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { Socket } from 'ng-socket-io';
 import { environment } from '../../../environments/environment';
-import { FarmerService } from 'src/app/services/farmer.service';
 
 @Component({
   selector: 'app-farmerslist',
@@ -13,22 +12,18 @@ export class FarmerslistPage implements OnInit {
 
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   public dataList: any;
-  public resList: any;
+
   public start: number;
   public limit: number;
   public rowsize: number;
   public searchtext = '';
-  public params: any;
-  constructor(
-    public socket: Socket,
-    public farmerService: FarmerService
-    ) {
+  constructor(public socket: Socket) {
     this.dataList = [];
-    this.resList = [];
     this.rowsize = 25;
     this.start = 0;
     this.limit = 25;
-    this.params = {
+    //sample request
+    this.socket.emit('serverrequest', {
       reciever : 'bukidnon',
       sender : environment.clientcode,
       servicename	: 'FarmerProfileService',
@@ -38,22 +33,38 @@ export class FarmerslistPage implements OnInit {
         limit : this.limit
       },
       searchtext: this.searchtext
-    };
-   
+    });
+    //sample response
+    this.socket.on('serverresponse', (data) => {
+      // console.log(data);
+      data.forEach(element => {
+        element.no =  this.dataList.length;
+        this.dataList.push(element);
+      });
+    });
   }
 
   loadData(event) {
     setTimeout(() => {
       console.log('Done');
+       //sample request
       this.start = this.start + this.rowsize;
-      this.farmerService.serverrequest(this.params).subscribe(res => {
-        this.resList = res;
-        this.resList.forEach(element => {
-          element.no =  this.dataList.length;
-          this.dataList.push(element);
-        });
+      this.socket.emit('serverrequest', {
+        reciever : 'bukidnon',
+        sender : environment.clientcode,
+        servicename	: 'FarmerProfileService',
+        methodname	: 'getFarmersList',
+        paging 		: {
+          start : this.start,
+          limit : this.limit
+        },
+        searchtext: this.searchtext
+
       });
+      
       event.target.complete();
+      // App logic to determine if all data is loaded
+      // and disable the infinite scroll
       if (this.dataList.length === 1000) {
         event.target.disabled = true;
       }
@@ -61,7 +72,7 @@ export class FarmerslistPage implements OnInit {
   }
   setFilteredItems() {
     this.dataList = [];
-    this.farmerService.serverrequest({
+    this.socket.emit('serverrequest', {
       reciever : 'bukidnon',
       sender : environment.clientcode,
       servicename	: 'FarmerProfileService',
@@ -71,12 +82,6 @@ export class FarmerslistPage implements OnInit {
         limit : 25
       },
       searchtext: this.searchtext
-    }).subscribe(res => {
-        this.resList = res;
-        this.resList.forEach(element => {
-          element.no =  this.dataList.length;
-          this.dataList.push(element);
-        });
     });
   }
   toggleInfiniteScroll() {
@@ -84,12 +89,6 @@ export class FarmerslistPage implements OnInit {
   }
 
   ngOnInit() {
-    this.farmerService.serverrequest(this.params).subscribe(res => {
-      this.resList = res;
-      this.resList.forEach(element => {
-        element.no =  this.dataList.length;
-        this.dataList.push(element);
-      });
-    });
+    
   }
 }

@@ -25,6 +25,7 @@ export function jwtOptionsFactory(storage){
         return storage.get('access_token');
       },
       whitelistedDomains: ['122.54.200.110:9000']
+      // whitelistedDomains: ['localhost:9000']
     }
 }
 

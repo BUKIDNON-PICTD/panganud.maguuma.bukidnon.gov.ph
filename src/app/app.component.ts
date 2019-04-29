@@ -6,12 +6,14 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
 import { Socket } from 'ng-socket-io';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html'
 })
 export class AppComponent {
+  public serverList: any;
   public appPages = [
     {
       title: 'Dashboard',
@@ -38,8 +40,15 @@ export class AppComponent {
   ) {
     this.initializeApp();
     this.connected = false;
-    this.clientid = 'CLIENT1';
-
+    this.clientid = environment.clientcode;
+    this.socket.on('connectedservers', (data) => {
+      if (data != undefined) {
+        this.serverList = [];
+        data.serverList.forEach(element => {
+          this.serverList.push(element);
+        });
+      }
+    });
     this.socket.on('login', (data) => {
       this.connected = true;
       console.log(data.numServers + ' servers online');
@@ -71,15 +80,6 @@ export class AppComponent {
     this.socket.on('reconnect_error', () => {
       console.log('attempt to reconnect has failed');
     });
-    // this.socket.on('Message', (data) => {
-    //   data.forEach((x) => {
-    //     if (x.setting) {
-    //       x.setting = JSON.parse(x.setting);
-    //     }
-    //   });
-    //   console.log(data[0].code);
-    //   this.items = data;
-    // });
   }
 
   initializeApp() {

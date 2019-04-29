@@ -4,6 +4,67 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+
+<ion-content padding>
+
+
+  <!-- <ion-list>
+      <ion-list-header>
+          <ion-label>Farmer ID</ion-label>
+          <ion-label>Farmer Name</ion-label>
+      </ion-list-header>
+      <ion-item *ngFor="let item of dataList">
+        <ion-label>{{item.farmerid}}</ion-label>
+        <ion-label>{{item.name}}</ion-label>
+      </ion-item>
+    </ion-list> -->
+
+  <div class="card">
+    <div class="card-header border-transparent">
+      <ion-item>
+          <ion-searchbar placeholder="Search" [(ngModel)]="searchtext"
+          (ionChange)="setFilteredItems()"></ion-searchbar>
+      </ion-item>
+      <ion-item>
+        <ion-button (click)="toggleInfiniteScroll()" expand="block">
+            Toggle Infinite Scroll
+        </ion-button>
+      </ion-item>
+
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table m-0">
+          <thead>
+            <tr>
+              <th>no.</th>
+              <th>Farmer ID</th>
+              <th>Farmer Name</th>
+              <th>Address</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of dataList">
+              <td>{{item.no}}</td>
+              <td>{{item.farmerid}}</td>
+              <td>{{item.farmer.name}}</td>
+              <td>{{item.farmer.address.text}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.table-responsive -->
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer clearfix">
+      <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </div>
+    <!-- /.card-footer -->
+  </div>
+
 
 </ion-content>

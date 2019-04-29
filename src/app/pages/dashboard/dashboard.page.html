@@ -3,14 +3,141 @@
     <ion-title>Dashboard</ion-title>
   </ion-toolbar>
 </ion-header>
- 
+
 <ion-content padding>
-  <!-- Welcome to the members only area!
- 
-  <p>{{ data }}</p>
- 
-  <ion-button expand="full" (click)="loadSpecialInfo()">Load Special Info</ion-button>
-  <ion-button expand="full" (click)="logout()">Logout</ion-button>
-  <ion-button expand="full" (click)="clearToken()">Clear JWT</ion-button> -->
- 
+  <ion-card class="welcome-card">
+    <ion-img src="/assets/banner.jpg"></ion-img>
+    <ion-card-header>
+      <ion-card-subtitle>Maguuma V2.0</ion-card-subtitle>
+      <ion-card-title>Farmers Profile Information System</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>In completion of final assignment for CMSC207</p>
+    </ion-card-content>
+  </ion-card>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-info">
+          <div class="inner">
+            <h3 *ngIf="agridata.agridashtotal == undefined">0</h3>
+            <h3 *ngIf="agridata.agridashtotal != undefined">{{ agridata.agridashtotal[0].RICE}}</h3>
+
+            <p>Total Rice Farmer</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-stats-bars"></i>
+          </div>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-success">
+          <div class="inner">
+            <h3 *ngIf="agridata.agridashtotal == undefined">0</h3>
+            <h3 *ngIf="agridata.agridashtotal != undefined">{{ agridata.agridashtotal[0].CORN }}</h3>
+
+            <p>Total Corn Farmer</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-stats-bars"></i>
+          </div>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-warning">
+          <div class="inner">
+            <h3 *ngIf="agridata.agridashtotal == undefined">0</h3>
+            <h3 *ngIf="agridata.agridashtotal != undefined">{{ agridata.agridashtotal[0].VEGETABLE }}</h3>
+
+            <p>Total Vegtable Farmer</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-stats-bars"></i>
+          </div>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-danger">
+          <div class="inner">
+            <h3 *ngIf="agridata.agridashtotal == undefined">0</h3>
+            <h3 *ngIf="agridata.agridashtotal != undefined">{{ agridata.agridashtotal[0].INDUSTRIAL.CROPS }}</h3>
+
+            <p>Total Industrial Crops Farmer</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-stats-bars"></i>
+          </div>
+        </div>
+      </div>
+      <!-- ./col -->
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header d-flex p-0 ui-sortable-handle" style="cursor: move;">
+            <h3 class="card-title p-3">
+              <i class="fa fa-pie-chart mr-1"></i>
+              Argriculture Commodity Profile
+            </h3>
+            <ul class="nav nav-pills ml-auto p-2">
+              <li class="nav-item">
+                <a class="nav-link active" href="#cornrice-chart" data-toggle="tab">CRON & RICE</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#vegind-chart" data-toggle="tab">VEGTABLE & INDUSTRIAL CROPS</a>
+              </li>
+            </ul>
+          </div><!-- /.card-header -->
+          <div class="card-body">
+            <div class="tab-content p-0">
+              <!-- Morris chart - Sales -->
+              <div class="chart tab-pane active" id="cornrice-chart"
+                style="position: relative; height: 800px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                <div class="card card-success">
+                  <div class="card-header">
+                    <h3 class="card-title">Commodity Summary</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="chart" style="display: block">
+                      <canvas baseChart *ngIf="agridata.agridashqty != undefined" [datasets]="barChartData"
+                        [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins"
+                        [legend]="barChartLegend" [chartType]="barChartType">
+                      </canvas>
+                    </div>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+              </div>
+              <div class="chart tab-pane" id="vegind-chart"
+                style="position: relative; height: 800px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                <div class="card card-success">
+                  <div class="card-header">
+                    <h3 class="card-title">Commodity Summary</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="chart" style="display: block">
+                      <canvas baseChart *ngIf="agridata.agridashqty != undefined" [datasets]="barChartData2"
+                        [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins"
+                        [legend]="barChartLegend" [chartType]="barChartType">
+                      </canvas>
+                    </div>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+              </div>
+            </div>
+          </div><!-- /.card-body -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 </ion-content>
