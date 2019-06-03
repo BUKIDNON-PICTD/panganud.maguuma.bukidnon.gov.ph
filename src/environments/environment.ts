@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   url: 'http://122.54.200.110:9000',
   // url: 'http://localhost:9000',
+  mappath: 'http://192.168.50.2/',
   clientcode : 'CLIENT1'
   
 };

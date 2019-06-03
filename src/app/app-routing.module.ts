@@ -22,16 +22,52 @@ const routes: Routes = [
   // },
   {
     path: 'login',
-    loadChildren: './pages/login/login.module#LoginPageModule' },
+    loadChildren: './pages/login/login.module#LoginPageModule'
+  },
+  // {
+  //   path: 'dashboard',
+  //   loadChildren: './pages/dashboard/dashboard.module#DashboardPageModule',
+  //   canActivate: [AuthGuardService]
+  // },
+  // {
+  //   path: 'farmerslist',
+  //   loadChildren: './pages/farmerslist/farmerslist.module#FarmerslistPageModule',
+  //   canActivate: [AuthGuardService]
+  // },
   {
-    path: 'dashboard',
-    loadChildren: './pages/dashboard/dashboard.module#DashboardPageModule',
+    path: 'etracs',
+    loadChildren: './pages/etracs/etracs.module#EtracsPageModule',
     canActivate: [AuthGuardService]
   },
-  { path: 'farmerslist',
-    loadChildren: './pages/farmerslist/farmerslist.module#FarmerslistPageModule',
+  {
+    path: 'pgbwall',
+    loadChildren: './pages/pgbwall/pgbwall.module#PgbwallPageModule',
     canActivate: [AuthGuardService]
-  }
+  },
+  {
+    path: 'maguuma',
+    loadChildren: './pages/maguuma/maguuma.module#MaguumaPageModule',
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'hrmis',
+    loadChildren: './pages/hrmis/hrmis.module#HrmisPageModule',
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'gisportal',
+    loadChildren: './pages/gisportal/gisportal.module#GisportalPageModule',
+    canActivate: [AuthGuardService]
+  },
+  { path: 'map', loadChildren: './pages/gisportal/map/map.module#MapPageModule', canActivate: [AuthGuardService] }
+
+  // ,
+  // {
+  //   path: 'gisportal/:id',
+  //   loadChildren: './pages/gisportal/mapdetails/mapdetails.component#MapdetailsComponent',
+  //   canActivate: [AuthGuardService]
+  // }
+
 ];
 
 @NgModule({

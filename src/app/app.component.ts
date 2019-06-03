@@ -16,14 +16,29 @@ export class AppComponent {
   public serverList: any;
   public appPages = [
     {
-      title: 'Dashboard',
-      url: '/dashboard',
-      icon: 'podium'
+      title: 'PGB Wall',
+      url: '/pgbwall',
+      icon: 'ion ion-pie-graph'
     },
     {
-      title: 'Farmers List',
-      url: '/farmerslist',
-      icon: 'list'
+      title: 'HRMIS',
+      url: '/hrmis',
+      icon: 'ion ion-person-stalker'
+    },
+    {
+      title: 'MAGUUMA',
+      url: '/maguuma',
+      icon: 'ion ion-leaf'
+    },
+    {
+      title: 'ETRACS',
+      url: '/etracs',
+      icon: 'ion ion-network'
+    },
+    {
+      title: 'GIS',
+      url: '/gisportal',
+      icon: 'icon ion-map'
     }
   ];
 
@@ -89,7 +104,7 @@ export class AppComponent {
       this.socket.emit('checkinserveronline', this.clientid);
       this.authService.authenticationState.subscribe(state => {
         if (state) {
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['pgbwall']);
         } else {
           this.router.navigate(['login']);
         }

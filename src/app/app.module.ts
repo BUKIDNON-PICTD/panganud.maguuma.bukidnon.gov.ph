@@ -15,6 +15,8 @@ import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 import { environment } from '../environments/environment';
+import { SafePipeModule } from './safepipe';
+import { SafePipe } from './pipe';
 
 
 const config: SocketIoConfig = { url: environment.url, options: {} };
@@ -45,7 +47,8 @@ export function jwtOptionsFactory(storage){
         useFactory: jwtOptionsFactory,
         deps: [Storage]
       }
-    })
+    }),
+    SafePipeModule
   ],
   providers: [
     StatusBar,
