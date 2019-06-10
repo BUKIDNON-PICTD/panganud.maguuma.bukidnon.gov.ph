@@ -45,77 +45,144 @@ export class MaguumaPage implements OnInit {
           methodname	: 'dash'
         };
       this.socket.on('connectedservers', (data) => {
-        if (data != undefined) {
+        if (data !== undefined) {
           this.serverList = [];
           data.serverList.forEach(element => {
             this.serverList.push(element);
           });
         }
       });
-    }
-  
-    ngOnInit() {
-      this.farmerService.serverrequest(this.params).subscribe(res => {
-        this.agridata = res;
-        // console.log(this.agridata);
-        this.barChartLabels = this.agridata.agridashqty.map(function(a) {return a.MUNICIPALITY;});
-        this.barChartOptions = {
-          responsive: true,
-          scales: { xAxes: [{}], yAxes: [{}] },
-          plugins: {
-            datalabels: {
-              anchor: 'end',
-              align: 'end',
+
+      this.socket.on('serverresponse', (data) => {
+        if (data !== undefined) {
+          this.agridata = data;
+          // console.log(this.agridata);
+          this.barChartLabels = this.agridata.agridashqty.map(function(a) {
+            return  a.MUNICIPALITY;
+          });
+          this.barChartOptions = {
+            responsive: true,
+            scales: { xAxes: [{}], yAxes: [{}] },
+            plugins: {
+              datalabels: {
+                anchor: 'end',
+                align: 'end',
+              }
             }
-          }
-        };
-  
-        this.barChartData = [
-          {
-            data: this.agridata.agridash.map(function(a) {
-            return a.CORN;
-            }),
-            label: 'CORN'
-          },
-          {
-            data: this.agridata.agridash.map(function(a) {
-            return a.RICE;
-            }),
-            label: 'RICE'
-          }
-          // ,
-          // {
-          //   data: this.agridata.agridash.map(function(a) {
-          //   return a.VEGETABLE;
-          //   }),
-          //   label: 'VEGETABLE'
-          // },
-          // {
-          //   data: this.agridata.agridash.map(function(a) {
-          //   return a.INDUSTRIAL.CROPS;
-          //   }),
-          //   label: 'INDUSTRIAL CROPS'
-          // }
-        ];
-  
-        this.barChartData2 = [
-          {
+          };
+
+          this.barChartData = [
+            {
               data: this.agridata.agridash.map(function(a) {
-              return a.VEGETABLE;
+              return a.CORN;
               }),
-              label: 'VEGETABLE'
+              label: 'CORN'
             },
             {
               data: this.agridata.agridash.map(function(a) {
-              return a.INDUSTRIAL.CROPS;
+              return a.RICE;
               }),
-              label: 'INDUSTRIAL CROPS'
+              label: 'RICE'
             }
+            // ,
+            // {
+            //   data: this.agridata.agridash.map(function(a) {
+            //   return a.VEGETABLE;
+            //   }),
+            //   label: 'VEGETABLE'
+            // },
+            // {
+            //   data: this.agridata.agridash.map(function(a) {
+            //   return a.INDUSTRIAL.CROPS;
+            //   }),
+            //   label: 'INDUSTRIAL CROPS'
+            // }
           ];
-  
-  
-        // console.log(this.barChartData);
+    
+          this.barChartData2 = [
+            {
+                data: this.agridata.agridash.map(function(a) {
+                return a.VEGETABLE;
+                }),
+                label: 'VEGETABLE'
+              },
+              {
+                data: this.agridata.agridash.map(function(a) {
+                return a.INDUSTRIAL.CROPS;
+                }),
+                label: 'INDUSTRIAL CROPS'
+              }
+            ];
+    
+    
+          // console.log(this.barChartData);
+          }
       });
+    }
+
+    ngOnInit() {
+      this.socket.emit('serverrequest', this.params);
+      // this.farmerService.serverrequest(this.params).subscribe(res => {
+      //   this.agridata = res;
+      //   // console.log(this.agridata);
+      //   this.barChartLabels = this.agridata.agridashqty.map(function(a) {return a.MUNICIPALITY;});
+      //   this.barChartOptions = {
+      //     responsive: true,
+      //     scales: { xAxes: [{}], yAxes: [{}] },
+      //     plugins: {
+      //       datalabels: {
+      //         anchor: 'end',
+      //         align: 'end',
+      //       }
+      //     }
+      //   };
+
+      //   this.barChartData = [
+      //     {
+      //       data: this.agridata.agridash.map(function(a) {
+      //       return a.CORN;
+      //       }),
+      //       label: 'CORN'
+      //     },
+      //     {
+      //       data: this.agridata.agridash.map(function(a) {
+      //       return a.RICE;
+      //       }),
+      //       label: 'RICE'
+      //     }
+      //     // ,
+      //     // {
+      //     //   data: this.agridata.agridash.map(function(a) {
+      //     //   return a.VEGETABLE;
+      //     //   }),
+      //     //   label: 'VEGETABLE'
+      //     // },
+      //     // {
+      //     //   data: this.agridata.agridash.map(function(a) {
+      //     //   return a.INDUSTRIAL.CROPS;
+      //     //   }),
+      //     //   label: 'INDUSTRIAL CROPS'
+      //     // }
+      //   ];
+  
+      //   this.barChartData2 = [
+      //     {
+      //         data: this.agridata.agridash.map(function(a) {
+      //         return a.VEGETABLE;
+      //         }),
+      //         label: 'VEGETABLE'
+      //       },
+      //       {
+      //         data: this.agridata.agridash.map(function(a) {
+      //         return a.INDUSTRIAL.CROPS;
+      //         }),
+      //         label: 'INDUSTRIAL CROPS'
+      //       }
+      //     ];
+  
+  
+      //   // console.log(this.barChartData);
+      // });
   
       // // const total = this.agridata.agridashqty.map(function(a) {return a.amount;}).reduce(function(a, b) { return a + b; }, 0);
       // const data = {

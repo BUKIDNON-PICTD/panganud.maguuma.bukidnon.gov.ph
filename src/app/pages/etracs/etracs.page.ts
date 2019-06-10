@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { EtracsService } from 'src/app/services/etracs.service';
+import { environment } from 'src/environments/environment';
+import { Socket } from 'ng-socket-io';
 
 @Component({
   selector: 'app-etracs',
@@ -6,10 +9,34 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./etracs.page.scss'],
 })
 export class EtracsPage implements OnInit {
+  dashdata: any;
+  params: any;
+  name: Object;
 
-  constructor() { }
+  constructor(
+    private socket: Socket,
+    public etracsService: EtracsService
+    ) {
+    this.dashdata = [];
+    this.params = {
+      reciever : 'rufy',
+      sender : environment.clientcode,
+      servicename	: 'TagabukidHRMISDashReportService',
+      methodname	: 'getHello',
+      message : 'Ralph'
+    };
+
+    this.socket.on('serverresponse', (data) => {
+      this.name = data;
+    });
+   }
 
   ngOnInit() {
+    // this.etracsService.serverrequest(this.params).subscribe(res => {
+    //   console.log('HELLO' + res);
+    //   this.name = res;
+    // });
+    this.socket.emit('serverrequest', this.params);
   }
 
 }
