@@ -32,10 +32,6 @@ export class EtracsPage implements OnInit {
    }
 
   ngOnInit() {
-    // this.etracsService.serverrequest(this.params).subscribe(res => {
-    //   console.log('HELLO' + res);
-    //   this.name = res;
-    // });
     this.socket.emit('serverrequest', this.params);
   }
 
