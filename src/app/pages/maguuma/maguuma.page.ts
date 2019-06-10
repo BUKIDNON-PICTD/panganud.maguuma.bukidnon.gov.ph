@@ -54,8 +54,9 @@ export class MaguumaPage implements OnInit {
       });
 
       this.socket.on('serverresponse', (data) => {
+        if (data.servicename === this.params.servicename && data.methodname === this.params.methodname) {
         if (data !== undefined) {
-          this.agridata = data;
+          this.agridata = data.result;
           // console.log(this.agridata);
           this.barChartLabels = this.agridata.agridashqty.map(function(a) {
             return  a.MUNICIPALITY;
@@ -117,7 +118,9 @@ export class MaguumaPage implements OnInit {
     
           // console.log(this.barChartData);
           }
+        }
       });
+     
     }
 
     ngOnInit() {

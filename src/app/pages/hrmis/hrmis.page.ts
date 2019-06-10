@@ -27,7 +27,10 @@ export class HrmisPage implements OnInit {
     };
 
     this.socket.on('serverresponse', (data) => {
-      this.dashdata = data;
+      console.log(data);
+      if (data.servicename === this.params.servicename && data.methodname === this.params.methodname) {
+        this.dashdata = data.result;
+      }
     });
   }
 

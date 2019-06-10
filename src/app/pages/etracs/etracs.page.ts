@@ -27,7 +27,10 @@ export class EtracsPage implements OnInit {
     };
 
     this.socket.on('serverresponse', (data) => {
-      this.name = data;
+      if (data.servicename === this.params.servicename && data.methodname === this.params.methodname) {
+        this.name = data.result;
+      }
+     
     });
    }
 
