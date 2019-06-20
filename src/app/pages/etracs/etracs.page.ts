@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { EtracsService } from 'src/app/services/etracs.service';
+import { environment } from 'src/environments/environment';
+import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
+import { Socket } from 'ng-socket-io';
+import { Label } from 'ng2-charts';
+import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-import { Socket } from 'ng-socket-io';
-import { environment } from '../../../environments/environment';
 import { FarmerService } from 'src/app/services/farmer.service';
-import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
-import * as pluginDataLabels from 'chartjs-plugin-datalabels';
-import { Label } from 'ng2-charts';
 
 @Component({
   selector: 'app-etracs',
