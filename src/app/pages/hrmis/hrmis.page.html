@@ -11,8 +11,8 @@
         <!-- small box -->
         <div class="small-box bg-info">
           <div class="inner">
-            <h3 *ngIf="d.data.COUNT == undefined">0</h3>
-            <h3 *ngIf="d.data.COUNT != undefined">{{d.data.COUNT}}</h3>
+            <h3 *ngIf="d.data == undefined">0</h3>
+            <h3 *ngIf="d.data != undefined">{{d.data}}</h3>
             <p>{{d.name}}</p>
           </div>
           <div class="icon">

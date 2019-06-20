@@ -12,6 +12,7 @@ export class EtracsPage implements OnInit {
   dashdata: any;
   params: any;
   name: Object;
+  maleList: any;
 
   constructor(
     private socket: Socket,
@@ -19,18 +20,18 @@ export class EtracsPage implements OnInit {
     ) {
     this.dashdata = [];
     this.params = {
-      reciever : 'rufy',
+      reciever : 'pora',
       sender : environment.clientcode,
       servicename	: 'TagabukidHRMISDashReportService',
-      methodname	: 'getHello',
+      methodname: 'getMale',
       message : 'Ralph'
     };
 
     this.socket.on('serverresponse', (data) => {
       if (data.servicename === this.params.servicename && data.methodname === this.params.methodname) {
-        this.name = data.result;
+        this.maleList = data.result;
       }
-     
+      console.log(this.name);
     });
    }
 
