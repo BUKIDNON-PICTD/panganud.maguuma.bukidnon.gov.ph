@@ -4,6 +4,20 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <h1>{{name}}</h1>
+<ion-content padding>
+  <div class="container-fuild">
+    <div class="row">
+      <div class="col-lg-3 col-6">
+          <div class="card-body">
+              <div class="chart" style="display: block">
+                <canvas baseChart *ngIf="dashrpu != undefined" [datasets]="barChartData"
+                  [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins"
+                  [legend]="barChartLegend" [chartType]="barChartType">
+                </canvas>
+              </div>
+            </div>
+      </div>
+    </div>
+  </div>
+  <h1>{{dashrpu}}</h1>
 </ion-content>

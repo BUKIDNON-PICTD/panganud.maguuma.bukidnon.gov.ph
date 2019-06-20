@@ -5,11 +5,41 @@
 </ion-header>
 
 <ion-content padding>
-  <div class="container-fluid">
+    
+    <div class="container-fluid">
+        
+            <div class="row">
+              
+              <div class="col-lg-3 col-6" *ngFor="let d of dashdata">
+                <!-- <ion-slides  #mySlider (ionSlidesDidLoad)="slidesDidLoad(mySlider)" loop="true" pager="true">
+                <ion-slide> -->
+                <div class="small-box bg-info">
+                  <div class="inner">
+                    <h3 *ngIf="d.data.COUNT == undefined">0</h3>
+                    <h3 *ngIf="d.data.COUNT != undefined">{{d.data.COUNT}}</h3>
+                    <p>{{d.name}}</p>
+                  </div>
+                  <div class="icon">
+                    <i *ngIf="d.setting.icon == undefined" class="ion ion-stats-bars"></i>
+                    <i *ngIf="d.setting.icon != undefined" [class]="d.setting.icon"></i>
+                  </div>
+                </div>
+              <!-- </ion-slide>
+            </ion-slides> -->
+          
+          </div>
+           
+        </div>
+     
+  </div>
+
+    
+  <!-- <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-3 col-6" *ngFor="let d of dashdata">
+              
+      <div class="col-lg-3 col-6" *ngFor="let d of dashdata"> -->
         <!-- small box -->
-        <div class="small-box bg-info">
+        <!-- <div class="small-box bg-info">
           <div class="inner">
             <h3 *ngIf="d.data.COUNT == undefined">0</h3>
             <h3 *ngIf="d.data.COUNT != undefined">{{d.data.COUNT}}</h3>
@@ -21,6 +51,7 @@
           </div>
         </div>
       </div>
+   
     </div>
-  </div>
+  </div> -->
 </ion-content>
