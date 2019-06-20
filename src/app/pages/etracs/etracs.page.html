@@ -4,17 +4,20 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <table>
-  <thead>
-    <th>Male State</th>
-    <th>Male Objid</th>
-  </thead>
-  <tbody>
-    <tr *ngFor="let male of maleList">
-      <td>{{male.state}}</td>
-      <td>{{male.objid}}</td>
-    </tr>
-  </tbody>
-</table>
+<ion-content padding>
+  <div class="container-fuild">
+    <div class="row">
+      <div class="col-lg-3 col-6">
+          <div class="card-body">
+              <div class="chart" style="display: block">
+                <canvas baseChart *ngIf="dashrpu != undefined" [datasets]="barChartData"
+                  [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins"
+                  [legend]="barChartLegend" [chartType]="barChartType">
+                </canvas>
+              </div>
+            </div>
+      </div>
+    </div>
+  </div>
+  <h1>{{dashrpu}}</h1>
 </ion-content>
