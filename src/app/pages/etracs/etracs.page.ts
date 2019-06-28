@@ -28,6 +28,8 @@ export class EtracsPage implements OnInit {
   dashrpu: any;
   params: any;
   name: Object;
+  municipality: any;
+  sqmMun: any;
 
 
   public barChartOptions: ChartOptions;
@@ -70,6 +72,17 @@ export class EtracsPage implements OnInit {
       if (data.servicename === this.params.servicename && data.methodname === this.params.methodname) {
         this.dashrpu = data.result;
       }
+
+      this.municipality = this.dashrpu.rpudashtotalsqm.map(item => item.LGU)
+        .filter((value, index, self) => self.indexOf(value) === index);
+        console.log(this.municipality);
+        
+      this.sqmMun = this.dashrpu.rpudashtotalsqm;
+      function perLGU(a) {
+        return a;
+      }
+      this.sqmMun = this.sqmMun.filter(perLGU);
+
 
       this.barChartLabelsRPUDash = this.dashrpu.rpudash.map(function (a) {
         return a.LGU;
@@ -131,6 +144,8 @@ export class EtracsPage implements OnInit {
       //     return a.LAND;
       //   })
       // ];
+      // this.dashrpu.map
+
     });
 }
 

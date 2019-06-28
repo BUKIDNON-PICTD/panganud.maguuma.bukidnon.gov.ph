@@ -85,7 +85,7 @@
               </div>
             
               <div class="card-body">
-                <ion-slides [options]="slideOptions" pager="true">
+                <!-- <ion-slides [options]="slideOptions" pager="true">
                   <ion-slide *ngFor="let hr of dashrpu.rpudashtotalsqm; let i=index">
                     <div class="col-lg-6 bg-info" *ngIf="hr.LGU == 'MARAMAG'">
                         <h5>{{ dashrpu.rpudashtotalsqm[i].LGU }}</h5>
@@ -93,20 +93,21 @@
                         <p>Bldg: {{ dashrpu.rpudashtotalsqm[i].BLDG }} sqm</p>  
                     </div>
                   </ion-slide>
-                </ion-slides>
-                <div class="row" *ngFor="let hr of dashrpu.rpudashtotalsqm; let i=index;">
-                  <!-- <div class="col-lg-3 col-6" *ngIf="dashrpu.rpudashtotalsqm != undefined">
-                    <div class="small-box bg-warning">
+                </ion-slides> -->
+                <div class="row" *ngFor="let muni of municipality">
+                  <div class="col-lg-3 col-6" *ngFor="let sq of sqmMun; let i=index;">
+                    <div class="small-box bg-warning" *ngIf="sq.LGU == muni">
                       <div class="inner">
-                        <h5>{{ dashrpu.rpudashtotalsqm[i].LGU }}</h5>
-                        <p>Land: {{ dashrpu.rpudashtotalsqm[i].LAND }} sqm</p>
-                        <p>Bldg: {{ dashrpu.rpudashtotalsqm[i].BLDG }} sqm</p>
-                        <p>Mach: {{ dashrpu.rpudashtotalsqm[i].MACH }} sqm</p>
-                        <p>Plant Tree: {{ dashrpu.rpudashtotalsqm[i].PLANTTREE }} sqm</p>
-                        <p>Misc: {{ dashrpu.rpudashtotalsqm[i].MISC }} sqm</p>
+                        <h5>{{ sqmMun[i].LGU }}</h5>
+                        <p>Barangay: {{ sqmMun[i].BARANGAY }}</p>
+                        <p>Land: {{ sqmMun[i].LAND }} sqm</p>
+                        <p>Bldg: {{ sqmMun[i].BLDG }} sqm</p>
+                        <p>Mach: {{ sqmMun[i].MACH }} sqm</p>
+                        <p>Plant Tree: {{ sqmMun[i].PLANTTREE }} sqm</p>
+                        <p>Misc: {{ sqmMun[i].MISC }} sqm</p>
                       </div>
                     </div>
-                  </div> -->
+                  </div>
                 </div>
               </div>
               <!-- /.card-body -->
