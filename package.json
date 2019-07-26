@@ -43,6 +43,7 @@
     "moment": "^2.10.2",
     "ng-socket-io": "^0.2.4",
     "ng2-charts": "^2.2.2",
+    "ol": "^5.3.3",
     "raphael": "^2.1.0",
     "rxjs": "^6.4.0",
     "rxjs-compat": "^6.4.0",
