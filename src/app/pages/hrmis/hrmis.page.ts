@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Socket } from 'ng-socket-io';
 import { environment } from '../../../environments/environment';
 import { EtracsService } from 'src/app/services/etracs.service';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label } from 'ng2-charts';
+import { IonSlides } from '@ionic/angular';
 
 @Component({
   selector: 'app-hrmis',
@@ -14,13 +15,28 @@ import { Label } from 'ng2-charts';
 export class HrmisPage implements OnInit {
   public params: any;
   public dashdata: any;
+
+  // Slides function
+  @ViewChild(IonSlides) slides: IonSlides;
+// tslint:disable-next-line: no-shadowed-variable
+  slidesDidLoad(slides: IonSlides) {
+    slides.startAutoplay();
+  }
+  // goToSlide() {
+  //   this.slides.slideTo(1, 500);
+  // }
+  // slideChanged() {
+  //   const currentIndex = this.slides.getActiveIndex();
+  //   console.log('Current index is', currentIndex);
+  // }
+
   constructor(
     private socket: Socket,
     public etracsService: EtracsService
   ) {
     this.dashdata = [];
     this.params = {
-      reciever : 'rufy',
+      reciever : 'jade',
       sender : environment.clientcode,
       servicename	: 'TagabukidHRMISDashReportService',
       methodname	: 'getDash'
@@ -33,7 +49,6 @@ export class HrmisPage implements OnInit {
       }
     });
   }
-
   ngOnInit() {
     this.socket.emit('serverrequest', this.params);
     // this.etracsService.serverrequest(this.params).subscribe(res => {
@@ -99,6 +114,8 @@ export class HrmisPage implements OnInit {
 
     //   // console.log(this.barChartData);
     // });
-  }
 
+
+
+  }
 }
