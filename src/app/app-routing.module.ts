@@ -59,7 +59,8 @@ const routes: Routes = [
     loadChildren: './pages/gisportal/gisportal.module#GisportalPageModule',
     canActivate: [AuthGuardService]
   },
-  { path: 'map', loadChildren: './pages/gisportal/map/map.module#MapPageModule', canActivate: [AuthGuardService] }
+  { path: 'map', loadChildren: './pages/gisportal/map/map.module#MapPageModule', canActivate: [AuthGuardService] },  { path: 'testgeo', loadChildren: './pages/testgeo/testgeo.module#TestgeoPageModule' }
+
 
   // ,
   // {
