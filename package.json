@@ -39,7 +39,7 @@
     "cordova-sqlite-storage": "3.2.0",
     "core-js": "^2.5.4",
     "fs": "0.0.1-security",
-    "handlebars": "^4.1.2",
+    "handlebars": "^4.3.0",
     "moment": "^2.24.0",
     "ng-socket-io": "^0.2.4",
     "ng2-charts": "^2.2.2",
